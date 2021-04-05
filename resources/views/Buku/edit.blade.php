@@ -1,0 +1,50 @@
+@extends('buku.layout')
+@section('content')
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="card" style="width: 24rem;">
+            <div class="card-header">
+                Tambah buku
+            </div>
+            <div class="card-body">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <form method="post" action="{{ route('buku.update', $buku->id_buku) }}" id="myForm">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="judul">Judul</label>
+                        <input type="text" name="judul" class="form-control" id="judul" aria-describedby="judul" value="{{$buku->judul}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Kategory">Kategori</label>
+                        <select name="kategory" id="Kategory" class="form-control">
+                            <option value="komputer" {{ ( $buku->kategory == 'komputer') ? 'selected' : '' }}>Komputer</option>
+                            <option value="Keuangan" {{ ( $buku->kategory == 'Keuangan') ? 'selected' : '' }}>Keuangan</option>
+                            <option value="Sains" {{ ( $buku->kategory == 'Sains') ? 'selected' : '' }}>Sains</option>
+                            <option value="Agama" {{ ( $buku->kategory == 'Agama') ? 'selected' : '' }}>Agama</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="penerbit">penerbit</label>
+                        <input type="text" name="penerbit" class="form-control" id="penerbit" aria-describedby="penerbit" value="{{$buku->penerbit}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Jumlah">Jumlah</label>
+                        <input type="number" name="jumlah" class="form-control" id="Jumlah" aria-describedby="Jumlah" value="{{$barang->qty}}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
